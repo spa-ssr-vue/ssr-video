@@ -18,8 +18,12 @@ export class CoursesController {
     const option = {
       title: '课程管理',
       column: [
-        { label: '课程名称', prop: 'name' },
-        { label: '课程封面图', prop: 'cover' },
+        { label: '课程名称', prop: 'name', sortable: true, search: true },
+        {
+          label: '课程封面图', prop: 'cover', span: 24, type: 'upload', listType: 'picture-img', propsHttp: {
+            res: 'data'
+          }, action: '/upload'
+        },
       ]
     }
     return option

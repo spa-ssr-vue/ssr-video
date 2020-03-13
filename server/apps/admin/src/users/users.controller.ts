@@ -18,7 +18,7 @@ export class UsersController {
     const option = {
       title: "用户管理",
       column: [
-        { label: "用户名", prop: "username" },
+        { label: "用户名", prop: "username", sortable: true, search: true },
         { label: "密码", prop: "password" }
       ]
     }

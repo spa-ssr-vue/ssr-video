@@ -9,13 +9,12 @@
       @row-save="create"
       @row-update="update"
       @row-del="remove"
-      @on-load="onLoad"
-      @size-change="sizeChange"
-      @current-change="currentChange"
-      @search-change="searchChange"
+      @on-load="loadData"
+      @current-change="changeCurrentPage"
+      @search-change="search"
       :upload-after="uploadAfter"
     >
-      <template slot="searchMenu"></template>
+      <!-- <template slot="searchMenu"></template> -->
     </avue-crud>
   </div>
 </template>
@@ -32,9 +31,10 @@ export default class ResourceList extends Vue {
   model: any = {};
 
   page: any = {
-    pageSize: 5,
-    pageSizes: [5, 10, 15],
-    total: 0
+    total: 0,
+    currentPage: 1,
+    pageSize: 10,
+    // pageSizes: [10, 20, 50, 100]
   };
 
   query: any = {
@@ -42,29 +42,28 @@ export default class ResourceList extends Vue {
     limit: 0
   };
 
-  async onLoad() {
+  async loadData() {
+    this.query.page = this.page.currentPage;
+    this.query.limit = this.page.pageSize;
     await this.fetchResourceList();
-    this.page.total = this.data.total;
-    this.page.currentPage = this.data.page;
   }
 
-  sizeChange(val) {
-    this.page.currentPage = 1;
-    this.query.page = this.page.currentPage;
-    this.query.limit = this.page.pageSize = val;
-    this.fetchResourceList();
-  }
-  currentChange(val) {
-    this.page.currentPage = val;
+  // changePageSize() {
+  //   this.page.currentPage = 1;
+  //   this.query.limit = this.page.pageSize;
+  //   this.fetchResourceList();
+  // }
+
+  changeCurrentPage() {
     this.query.page = this.page.currentPage;
     this.fetchResourceList();
   }
 
-  searchChange(params, done) {
+  async search(params, done) {
     const key: any = Object.keys(params).pop();
     const where = { [key]: { $regex: params[key] } };
     this.query.where = where;
-    this.fetchResourceList();
+    await this.fetchResourceList();
     done();
   }
 
@@ -74,7 +73,9 @@ export default class ResourceList extends Vue {
   }
 
   async create(row, done) {
-    await this.$http.post(`/${this.resource}`, row);
+    const data = JSON.parse(JSON.stringify(row));
+    Reflect.deleteProperty(data, "$course");
+    await this.$http.post(`/${this.resource}`, data);
     this.$message.success("创建完成");
     this.fetchResourceList();
     done();
@@ -112,6 +113,7 @@ export default class ResourceList extends Vue {
       }
     });
     this.data = res.data;
+    this.page.total = res.data.total;
   }
 
   created() {

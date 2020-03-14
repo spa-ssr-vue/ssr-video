@@ -20,9 +20,7 @@ export class CoursesController {
       column: [
         { label: '课程名称', prop: 'name', sortable: true, search: true },
         {
-          label: '课程封面图', prop: 'cover', span: 24, type: 'upload', listType: 'picture-img', propsHttp: {
-            res: 'data'
-          }, action: '/upload'
+          label: '课程封面图', prop: 'cover', span: 24, width: 100, type: 'upload', listType: 'picture-img', action: '/upload'
         },
       ]
     }

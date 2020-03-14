@@ -6,6 +6,7 @@ const http: AxiosInstance = axios.create({
 })
 
 // http.interceptors.request.use()
-
-Vue.prototype.$httpajax = http
+Reflect.set(window, 'axios', http)
+// window.axios = http
+// Vue.prototype.$httpajax = http
 Vue.prototype.$http = http

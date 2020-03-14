@@ -14,6 +14,9 @@ export class AppController {
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
   upload(@UploadedFile() file) {
-    return file
+    console.log(file);
+    return {
+      url: `http://localhost:3000/uploads/${file.filename}`
+    }
   }
 }

@@ -22,10 +22,13 @@ export class EpisodesController {
     const courses = (await this.course.find()).map(item => ({ label: item.name, value: item._id }))
     const option = {
       title: '课时管理',
+      translate: false,
       column: [
-        { label: '所属课程', prop: 'course', span: 24, type: "select", dicData: courses },
+        { label: '所属课程', prop: 'course', span: 24, type: "select", dicData: courses, value: null },
         { label: '课时名称', prop: 'name', span: 24, sortable: true, search: true },
-        { label: '课时文件', prop: 'file', span: 24, type: 'upload' },
+        {
+          label: '课时文件', prop: 'file', span: 24, width: 100, type: 'upload', listType: 'picture-img', action: "/upload"
+        },
       ]
     }
     return option

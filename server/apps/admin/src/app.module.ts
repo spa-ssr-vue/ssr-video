@@ -13,7 +13,7 @@ import { CommonModule } from '@app/common';
     [
       CommonModule,
       MulterModule.register({
-        dest: '/uploads'
+        dest: 'uploads',
       }),
       UsersModule,
       CoursesModule,

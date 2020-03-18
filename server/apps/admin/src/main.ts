@@ -12,7 +12,7 @@ async function bootstrap() {
 
   const options = new DocumentBuilder()
     .setTitle('Video-后台管理API')
-    .setDescription('供《Video》网站使用的后台管理系统API')
+    .setDescription('供《Video》网站后台管理界面调用的服务端API')
     .setVersion('1.0')
     .addTag('')
     .build();

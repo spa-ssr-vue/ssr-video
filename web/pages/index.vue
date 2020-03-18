@@ -6,6 +6,13 @@
         <vuetify-logo />
       </div>
       <v-card>
+        <div>
+          <h3>video</h3>
+          <video
+            src="http://localhost:3008/uploads/file1584538334608.ogv"
+            controls
+          ></video>
+        </div>
         <div v-for="(item, index) in list" :key="index">
           <router-link to="/">{{ item.label }}---{{ item.value }}</router-link>
         </div>

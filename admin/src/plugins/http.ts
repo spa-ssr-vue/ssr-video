@@ -2,7 +2,7 @@ import Vue from 'vue';
 import axios, { AxiosInstance } from 'axios';
 
 const http: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:3000'
+  baseURL: process.env.VUE_APP_API_URL
 })
 
 // http.interceptors.request.use()

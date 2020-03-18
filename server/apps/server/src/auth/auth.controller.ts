@@ -3,10 +3,11 @@ import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { InjectModel } from 'nestjs-typegoose';
-import { ReturnModelType } from '@typegoose/typegoose';
+import { ReturnModelType, DocumentType } from '@typegoose/typegoose';
 import { User } from '@libs/db/models/user.model';
 import { AuthGuard } from '@nestjs/passport';
 import { JwtService } from '@nestjs/jwt';
+import { CurrentUser } from './decorator/current-user.decorator';
 
 
 @ApiTags('用户')
@@ -25,25 +26,21 @@ export class AuthController {
     return { user }
   }
 
+  @UseGuards(AuthGuard('local'))
   @ApiOperation({ description: '登录', summary: '登录' })
   @Post('login')
-  @UseGuards(AuthGuard('local'))
-  async login(@Body() dto: LoginDto, @Req() req) {
-    const { _id } = req.user
-    const token = this.jwtService.sign(String(_id || ''))
+  async login(@Body() dto: LoginDto, @CurrentUser() user: DocumentType<User>) {
+    const token = this.jwtService.sign(String(user._id || ''))
     return {
       token
     }
   }
 
-  @ApiOperation({ description: '获取用户信息', summary: '获取用户信息' })
-  @Get('user')
   @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
-  async getUser(@Req() req) {
-    console.log(req);
-    return req.user
+  @ApiOperation({ description: '获取用户信息', summary: '获取用户信息' })
+  @Get('user')
+  async getUser(@CurrentUser() user: DocumentType<User>) {
+    return user
   }
-
-
 }

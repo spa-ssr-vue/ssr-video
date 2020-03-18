@@ -16,7 +16,7 @@ export class AppController {
   upload(@UploadedFile() file) {
     console.log(file);
     return {
-      url: `http://localhost:3000/uploads/${file.filename}`
+      url: `http://localhost:${process.env.ADMIN_PORT}/uploads/${file.filename}`
     }
   }
 }

@@ -1,91 +1,32 @@
 <template>
-  <v-layout column justify-center align-center>
-    <v-flex xs12 sm8 md6>
-      <div class="text-center">
-        <logo />
-        <vuetify-logo />
-      </div>
-      <v-card>
-        <div>
-          <h3>video</h3>
-          <video
-            src="http://localhost:3008/uploads/file1584538334608.ogv"
-            controls
-          ></video>
-        </div>
-        <div v-for="(item, index) in list" :key="index">
-          <router-link to="/">{{ item.label }}---{{ item.value }}</router-link>
-        </div>
-        <v-card-title class="headline"
-          >Welcome to the Vuetify + Nuxt.js template</v-card-title
-        >
-        <v-card-text>
-          <p>
-            Vuetify is a progressive Material Design component framework for
-            Vue.js. It was designed to empower developers to create amazing
-            applications.
-          </p>
-          <p>
-            For more information on Vuetify, check out the
-            <a href="https://vuetifyjs.com" target="_blank">documentation</a>.
-          </p>
-          <p>
-            If you have questions, please join the official
-            <a href="https://chat.vuetifyjs.com/" target="_blank" title="chat"
-              >discord</a
-            >.
-          </p>
-          <p>
-            Find a bug? Report it on the github
-            <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              title="contribute"
-              >issue board</a
-            >.
-          </p>
-          <p>
-            Thank you for developing with Vuetify and I look forward to bringing
-            more exciting features in the future.
-          </p>
-          <div class="text-xs-right">
-            <em>
-              <small>&mdash; John Leider</small>
-            </em>
-          </div>
-          <hr class="my-3" />
-          <a href="https://nuxtjs.org/" target="_blank">Nuxt Documentation</a>
-          <br />
-          <a href="https://github.com/nuxt/nuxt.js" target="_blank"
-            >Nuxt GitHub</a
-          >
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" nuxt to="/inspire">Continue</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-flex>
-  </v-layout>
+  <div class="text-center">
+    Home!!!!!
+  </div>
 </template>
-
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
-
 export default {
-  components: {
-    Logo,
-    VuetifyLogo
+  props: {
+    source: { type: String, default: '' }
   },
-  data() {
-    return {
-      list: [
-        { label: 'l1', value: 1 },
-        { label: 'l2', value: 2 },
-        { label: 'l3', value: 3 }
-      ]
-    }
+  data: () => ({
+    drawer: null,
+    items: [
+      { icon: 'mdi-trending-up', text: 'Most Popular' },
+      { icon: 'mdi-youtube-subscription', text: 'Subscriptions' },
+      { icon: 'mdi-history', text: 'History' },
+      { icon: 'mdi-playlist-play', text: 'Playlists' },
+      { icon: 'mdi-clock', text: 'Watch Later' }
+    ],
+    items2: [
+      { picture: 28, text: 'Joseph' },
+      { picture: 38, text: 'Apple' },
+      { picture: 48, text: 'Xbox Ahoy' },
+      { picture: 58, text: 'Nokia' },
+      { picture: 78, text: 'MKBHD' }
+    ]
+  }),
+  created() {
+    this.$vuetify.theme.dark = true
   }
 }
 </script>

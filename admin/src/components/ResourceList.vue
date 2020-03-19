@@ -5,6 +5,7 @@
       v-model="model"
       :data="data.data"
       :option="option"
+      :table-loading="loading"
       :page.sync="page"
       @row-save="create"
       @row-update="update"
@@ -15,6 +16,9 @@
       :upload-after="uploadAfter"
     >
       <!-- <template slot="searchMenu"></template> -->
+      <template slot="file" slot-scope="scope">
+        <video :src="scope.row.file" width="100%"></video>
+      </template>
     </avue-crud>
   </div>
 </template>
@@ -30,10 +34,12 @@ export default class ResourceList extends Vue {
   data: any = {};
   model: any = {};
 
+  loading: boolean = true;
+
   page: any = {
     total: 0,
     currentPage: 1,
-    pageSize: 10,
+    pageSize: 10
     // pageSizes: [10, 20, 50, 100]
   };
 
@@ -69,7 +75,7 @@ export default class ResourceList extends Vue {
 
   async uploadAfter(res, done, loading) {
     done();
-    this.$message.success("上传后的方法");
+    this.$message.success("上传完成");
   }
 
   async create(row, done) {
@@ -104,6 +110,7 @@ export default class ResourceList extends Vue {
   async fetchOption() {
     const res = await this.$http.get(`/${this.resource}/option`);
     this.option = res.data;
+    this.loading = false;
   }
 
   async fetchResourceList() {
@@ -122,5 +129,4 @@ export default class ResourceList extends Vue {
 }
 </script>
 
-<style>
-</style>
+<style></style>

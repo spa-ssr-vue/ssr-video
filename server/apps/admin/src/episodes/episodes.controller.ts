@@ -27,7 +27,9 @@ export class EpisodesController {
         { label: '所属课程', prop: 'course', span: 24, type: "select", dicData: courses, value: null },
         { label: '课时名称', prop: 'name', span: 24, sortable: true, search: true },
         {
-          label: '课时文件', prop: 'file', span: 24, width: 100, type: 'upload', listType: 'picture-img', action: "/upload"
+          label: '课时文件', prop: 'file', span: 24, width: 100, type: 'upload', params: {
+            is: 'video'
+          }, listType: 'picture-img', action: "/upload", slot: true
         },
       ]
     }
